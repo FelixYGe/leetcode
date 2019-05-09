@@ -41,5 +41,20 @@
 #
 class Solution:
     def candy(self, ratings: List[int]) -> int:
+        nums = len(ratings)
+        left2right = [1] * nums
+        right2left = [1] * nums
+        for i in range(nums-1):
+            if ratings[i+1]>ratings[i]:
+                left2right[i+1] = left2right[i] + 1
         
+        for i in range(nums-1, 0, -1):
+            if ratings[i-1]>ratings[i]:
+                right2left[i-1] = right2left[i] + 1
+        
+        res = 0
+        for i in range(nums):
+            res += max(right2left[i], left2right[i])
+        return res
+            
 
